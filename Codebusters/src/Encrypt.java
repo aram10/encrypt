@@ -5,10 +5,14 @@ import java.util.*;
 import java.util.stream.IntStream;
 import org.javatuples.Pair;
 
-
+/**
+* Class for computing common cryptographic ciphers.
+* @author Alex Rambasek
+*/
 public class Encrypt
 {
 
+    //Keys are commonly chosed from famous literature, if not randomly-generated.
     private static final String GETTYSBURG = "FOURSCOREANDSEVENYEARSAGOOURFATHERSBROUGHTFORTHONTHISCONTINENTANEWNATI" +
             "ONCONCEIVEDINLIBERTYANDDEDICATEDTOTHEPROPOSITIONTHATALLMENARECREATEDEQUAL";
 
@@ -19,8 +23,8 @@ public class Encrypt
 
     /**
      * Computes the Atbash Cipher, a special case of the Affine Cipher.
-     * @param str plaintext to encrypt
-     * @return encrypted text
+     * @param str plaintext
+     * @return ciphertext
      */
     public static String atbash(String str)
     {
@@ -46,9 +50,9 @@ public class Encrypt
     /**
      * Computer the Caesar Cipher, a monoalphabetic substitution cipher where each letter is replaced by a character
      * shifted by a certain amount.
-     * @param str plaintext to encrypt
+     * @param str plaintext
      * @param offset amount of shifting
-     * @return encrypted text
+     * @return ciphertext
      */
     public static String caesar(String str, int offset)
     {
@@ -79,10 +83,10 @@ public class Encrypt
     /**
      * Computes the Affine Cipher, which encrypts characters by the formula (ax + b) mod m, where a and b are coprime
      * integers and m is the size of the alphabet.
-     * @param str plaintext to encrypt
+     * @param str plaintext
      * @param a
      * @param b
-     * @return encrypted text
+     * @return ciphertext
      */
     public static String affine(String str, int a, int b)
     {
@@ -116,8 +120,8 @@ public class Encrypt
      * Computes the Vigenère Cipher, which is a form of polyalphabetic substitution where the used alphabet for a
      * character depends on a repeating keyword.
      * @param str plaintext to be encrypted
-     * @param key keyword for substitution
-     * @return encrypted text
+     * @param key cryptographic key
+     * @return ciphertext
      */
     private static String vigenere(String str, String key)
     {
@@ -167,7 +171,7 @@ public class Encrypt
      * and diagonally on successive "rails" of an imaginary fence.
      * @param str plaintext to be encrypted
      * @param num number of rails
-     * @return encrypted text
+     * @return ciphertext
      */
     private static String railfence(String str, int num)
     {
@@ -224,8 +228,8 @@ public class Encrypt
      * Computes the Autokey Cipher, a polyalphabetic substitution cipher similar to the Vigenère Cipher, except that
      * the encryption alphabet is composed of the key followed by the plaintext characters.
      * @param str plaintext to be encrypted
-     * @param key keyword for substitution
-     * @return encrypted text
+     * @param key cryptographic key
+     * @return ciphertext
      */
     private static String autokey(String str, String key)
     {
@@ -270,7 +274,13 @@ public class Encrypt
         }
         return sb.toString();
     }
-
+    /**
+    * Computes the Playfair cipher, a literal digram substitution cipher with a modified Polybius square,
+    * first popularized by Lord Playfair.
+    * @param str plaintext to be encrypted
+    * @param key cryptographic key
+    * @return ciphertext
+    */
     private static String playfair(String str, String key)
     {
         HashMap<Character, Pair<Integer, Integer>> locations = new HashMap<Character, Pair<Integer, Integer>>();
@@ -410,8 +420,9 @@ public class Encrypt
     }
 
     /**
-     *
+     * Plaintext formatter.
      * @param str: plaintext
+     * @param keepWhitespace: whether or not to prune whitespace
      * @return formatted string
      */
     private static String format(String str, boolean keepWhitespace)
